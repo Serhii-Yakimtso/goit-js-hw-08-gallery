@@ -29,6 +29,9 @@ galleryList.insertAdjacentHTML("beforeend", galleryListItems);
 // Открываем модальное окно
 galleryList.addEventListener("click", galleryImageClick);
 
+// Закрываем модальное окно
+closeBtn.addEventListener("click", closeModal);
+
 function createGalleryListItems(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
@@ -79,4 +82,15 @@ function selectedImageView(evt) {
 
   imageView.src = hrefSelectedImage;
   imageView.alt = altSelectedImage;
+}
+
+function closeModal() {
+  modal.classList.remove("is-open");
+
+  clearingAtributesOfSelectedImage();
+}
+
+function clearingAtributesOfSelectedImage() {
+  imageView.src = "";
+  imageView.alt = "";
 }
