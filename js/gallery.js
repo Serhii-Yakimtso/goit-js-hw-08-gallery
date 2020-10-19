@@ -15,6 +15,7 @@ const galleryListItems = createGalleryListItems(galleryItems);
 // Поиск модального окна в разметке
 const modal = document.querySelector(".js-lightbox");
 // console.log(modal);
+// const isActiveModal = modal.classList.contains("is-open");
 
 // Поиск блока отображения оригиналоного изображения в модальном окне
 const imageView = document.querySelector(".lightbox__image");
@@ -23,6 +24,7 @@ const imageView = document.querySelector(".lightbox__image");
 const closeBtn = document.querySelector(".lightbox__button");
 // console.log(closeBtn);
 
+// Поиск оверлэя модального окна в разметке
 const isOverlay = document.querySelector(".lightbox__overlay");
 
 // Влаживаем элементы списка в разметку
@@ -36,6 +38,9 @@ closeBtn.addEventListener("click", closeModal);
 
 // Закрываем модальное окно кликом на оверлэй
 isOverlay.addEventListener("click", closeModalOverlay);
+
+// Реагирование модального окна на управление с клавиатуры
+document.addEventListener("keydown", pressKeyboard);
 
 function createGalleryListItems(gallery) {
   return gallery
@@ -90,6 +95,12 @@ function selectedImageView(evt) {
 }
 
 function closeModal() {
+  const isActiveModal = modal.classList.contains("is-open");
+
+  if (!isActiveModal) {
+    return;
+  }
+
   modal.classList.remove("is-open");
 
   clearingAtributesOfSelectedImage();
@@ -105,4 +116,16 @@ function closeModalOverlay() {
     return;
   }
   closeModal();
+}
+
+function pressKeyboard(evt) {
+  const isActiveModal = modal.classList.contains("is-open");
+
+  if (!isActiveModal) {
+    return;
+  }
+
+  if (evt.code === "Escape") {
+    closeModal();
+  }
 }
