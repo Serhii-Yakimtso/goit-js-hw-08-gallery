@@ -23,14 +23,19 @@ const imageView = document.querySelector(".lightbox__image");
 const closeBtn = document.querySelector(".lightbox__button");
 // console.log(closeBtn);
 
+const isOverlay = document.querySelector(".lightbox__overlay");
+
 // Влаживаем элементы списка в разметку
 galleryList.insertAdjacentHTML("beforeend", galleryListItems);
 
 // Открываем модальное окно
 galleryList.addEventListener("click", galleryImageClick);
 
-// Закрываем модальное окно
+// Закрываем модальное окно кликом на кнопку закрытия
 closeBtn.addEventListener("click", closeModal);
+
+// Закрываем модальное окно кликом на оверлэй
+isOverlay.addEventListener("click", closeModalOverlay);
 
 function createGalleryListItems(gallery) {
   return gallery
@@ -93,4 +98,11 @@ function closeModal() {
 function clearingAtributesOfSelectedImage() {
   imageView.src = "";
   imageView.alt = "";
+}
+
+function closeModalOverlay() {
+  if (!isOverlay) {
+    return;
+  }
+  closeModal();
 }
